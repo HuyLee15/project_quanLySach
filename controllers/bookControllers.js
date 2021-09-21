@@ -55,5 +55,47 @@ module.exports = {
                 data: error.message,
             });
         }
+    },
+    putBook: async(req, res) => {
+        try {
+            const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+            });
+
+            res.json({
+                error: 0,
+                success: true,
+                data: book,
+            });
+        } catch (error) {
+            res.json({
+                error: 1,
+                success: false,
+                data: error.message,
+            });
+        }
+    },
+    deleteBook: async(req, res) => {
+        try {
+            const book = await Book.findOneAndDelete(req.params.id);
+            if (!book) {
+                return res.json({
+                    error: 1,
+                    success: false,
+                    data: `cannot find book with ID ${req.params.id}`
+                })
+            }
+            res.json({
+                error: 0,
+                success: true,
+                data: {},
+            });
+        } catch (error) {
+            res.json({
+                error: 1,
+                success: false,
+                data: error.message,
+            });
+        }
     }
 }

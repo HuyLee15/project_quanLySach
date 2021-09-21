@@ -10,6 +10,8 @@ router
 
 router
     .route('/:id')
-    .get(bookController.getBook);
+    .get(bookController.getBook)
+    .put(bookController.putBook)
+    .delete(bookController.deleteBook);
 
 module.exports = router;

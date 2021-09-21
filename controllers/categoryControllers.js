@@ -1,29 +1,29 @@
 const Category = require('../modules/Category');
 
 module.exports = {
-    getAllBook: async(req, res) => {
+    getAllCategory: async(req, res) => {
         try {
-            const books = await Book.getName();
+            const categories = await Category.find();
             res.json({
                 error: 0,
                 success: true,
-                data: books
+                data: categories
             })
         } catch (error) {
             res.json({
                 error: 1,
                 success: false,
-                data: err.message
+                data: error.message
             })
         }
     },
-    getBook: async(req, res) => {
+    getCategory: async(req, res) => {
         try {
-            const book = await Book.findById(req.body.id);
+            const category = await Category.findById(req.params.id);
             res.json({
-                err: 0,
+                error: 0,
                 success: true,
-                data: book,
+                data: category,
             });
         } catch (error) {
             res.json({
@@ -33,24 +33,22 @@ module.exports = {
             });
         }
     },
-    postBook: async(req, res) => {
+    postCategory: async(req, res) => {
         try {
-            const { bookName, author, price, nxb } = req.body;
-            const book = await Book.create({
-                bookName,
-                author,
-                price,
-                nxb
+            const { name, description } = req.body;
+            const category = await Book.create({
+                name,
+                description
             });
 
             res.json({
-                err: 0,
+                error: 0,
                 success: true,
-                data: book,
+                data: category,
             });
         } catch (error) {
             res.json({
-                err: 1,
+                error: 1,
                 success: false,
                 data: error.message,
             });

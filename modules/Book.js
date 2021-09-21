@@ -16,7 +16,14 @@ const bookSchema = new mongoose.Schema({
     nxb: {
         type: String,
         required: [true, 'NXB is invalid.']
-    }
+    },
+    categoryID: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'category',
+        required: true,
+    },
+}, {
+    timestamps: true,
 });
 
 module.exports = mongoose.model('book', bookSchema);
