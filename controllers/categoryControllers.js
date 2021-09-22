@@ -36,7 +36,7 @@ module.exports = {
     postCategory: async(req, res) => {
         try {
             const { name, description } = req.body;
-            const category = await Book.create({
+            const category = await Category.create({
                 name,
                 description
             });

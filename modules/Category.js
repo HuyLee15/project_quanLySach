@@ -5,7 +5,7 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: [true, 'Category name is invalid.']
     },
-    desscription: {
+    description: {
         type: String,
         required: [true, 'Category description is invalid.']
     }

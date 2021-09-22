@@ -1,4 +1,5 @@
 const Book = require('../modules/Book');
+const { getCategory } = require('./categoryControllers');
 
 module.exports = {
     getAllBook: async(req, res) => {
@@ -35,12 +36,13 @@ module.exports = {
     },
     postBook: async(req, res) => {
         try {
-            const { bookName, author, price, nxb } = req.body;
+            const { bookName, author, price, nxb, categoryID } = req.body;
             const book = await Book.create({
                 bookName,
                 author,
                 price,
-                nxb
+                nxb,
+                categoryID
             });
 
             res.json({
@@ -97,5 +99,31 @@ module.exports = {
                 data: error.message,
             });
         }
+    },
+    getCategoryBook: async(req, res, next) => {
+        try {
+            const books = await Book.findById(req.params.id);
+            if (!books) {
+                return res.json({
+                    error: 1,
+                    success: false,
+                    data: `cannot find book with categoryID: ${req.params.categoryID}`,
+                });
+            }
+
+            res.json({
+                error: 0,
+                success: true,
+                data: books
+            });
+
+        } catch (error) {
+            res.json({
+                error: 1,
+                success: false,
+                data: error.message,
+            });
+        }
+
     }
 }

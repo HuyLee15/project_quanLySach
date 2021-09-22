@@ -6,12 +6,18 @@ const bookController = require('../controllers/bookControllers');
 router
     .route('/')
     .get(bookController.getAllBook)
-    .post(bookController.postBook);
+    .post(bookController.postBook)
 
 router
     .route('/:id')
     .get(bookController.getBook)
     .put(bookController.putBook)
     .delete(bookController.deleteBook);
+
+router
+    .route('/:categoryID')
+    .get(bookController.getCategoryBook);
+
+
 
 module.exports = router;
