@@ -15,7 +15,7 @@ router
     .delete(bookController.deleteBook);
 
 router
-    .route('/:categoryID')
+    .route('/category/:categoryID')
     .get(bookController.getCategoryBook);
 
 

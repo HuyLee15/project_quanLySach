@@ -102,7 +102,7 @@ module.exports = {
     },
     getCategoryBook: async(req, res, next) => {
         try {
-            const books = await Book.findById(req.params.id);
+            const books = await Book.find({ categoryID: req.params.categoryID });
             if (!books) {
                 return res.json({
                     error: 1,
