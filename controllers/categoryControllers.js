@@ -1,57 +1,34 @@
 const Category = require('../modules/Category');
+const asyncHandle = require('../middlewares/asyncHandle')
 
 module.exports = {
-    getAllCategory: async(req, res) => {
-        try {
-            const categories = await Category.find();
-            res.json({
-                error: 0,
-                success: true,
-                data: categories
-            })
-        } catch (error) {
-            res.json({
-                error: 1,
-                success: false,
-                data: error.message
-            })
-        }
-    },
-    getCategory: async(req, res) => {
-        try {
-            const category = await Category.findById(req.params.id);
-            res.json({
-                error: 0,
-                success: true,
-                data: category,
-            });
-        } catch (error) {
-            res.json({
-                error: 1,
-                success: false,
-                data: error.message,
-            });
-        }
-    },
-    postCategory: async(req, res) => {
-        try {
-            const { name, description } = req.body;
-            const category = await Category.create({
-                name,
-                description
-            });
+    getAllCategory: asyncHandle(async(req, res, next) => {
+        const categories = await Category.find();
+        res.json({
+            error: 0,
+            success: true,
+            data: categories
+        })
+    }),
+    getCategory: asyncHandle(async(req, res, next) => {
+        const category = await Category.findById(req.params.id);
+        res.json({
+            error: 0,
+            success: true,
+            data: category,
+        });
+    }),
+    postCategory: asyncHandle(async(req, res, next) => {
+        const { name, description } = req.body;
+        const category = await Category.create({
+            name,
+            description
+        });
 
-            res.json({
-                error: 0,
-                success: true,
-                data: category,
-            });
-        } catch (error) {
-            res.json({
-                error: 1,
-                success: false,
-                data: error.message,
-            });
-        }
-    }
+        res.json({
+            error: 0,
+            success: true,
+            data: category,
+        });
+    })
 }
