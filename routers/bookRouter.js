@@ -2,11 +2,12 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 
 const bookController = require('../controllers/bookControllers');
+const authRouter = require('../controllers/authController');
 
 router
     .route('/')
-    .get(bookController.getAllBook)
-    .post(bookController.postBook)
+    .post(bookController.postBook);
+router.get('/', authRouter.authenticateToken, bookController.getAllBook);
 
 router
     .route('/:id')
