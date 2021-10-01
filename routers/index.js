@@ -4,6 +4,7 @@ const categoryRouter = require('./categoryRouter');
 const userRouter = require('./userRouter');
 const uploadRouter = require('./upload');
 const authRouter = require('./auth');
+const errorHandle = require('../middlewares/errorHandle');
 
 module.exports = (app) => {
     app.use('/api/books', bookRouter);
@@ -15,5 +16,5 @@ module.exports = (app) => {
     app.set('views', './views');
 
     app.use("/", uploadRouter);
-
+    app.use(errorHandle);
 }
